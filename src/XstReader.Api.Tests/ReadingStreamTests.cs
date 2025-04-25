@@ -9,15 +9,16 @@ namespace XstReader.Api.Tests
     [TestClass]
     public sealed class ReadingStreamTests
     {
+        private string _pstFilepath = "<PSTFILEPATH HERE>";
 
         [TestMethod]
         public void OpenFileWithXstReader()
         {
             // Arrange
-            string filePath = Path.Combine("D:\\ediscovery\\Test_Export\\01.20.2025-1204PM\\Exchange\\carl.tierney@vision2.com.pst");
+            
 
 
-            using var xstFile = new XstFile(filePath);
+            using var xstFile = new XstFile(_pstFilepath);
 
 
             // Assert
@@ -30,8 +31,8 @@ namespace XstReader.Api.Tests
         public void OpenFileAndPassStreamToXstReader()
         {
             // Arrange
-            string filePath = Path.Combine("D:\\ediscovery\\Test_Export\\01.20.2025-1204PM\\Exchange\\carl.tierney@vision2.com.pst");
-            using FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+           
+            using FileStream fileStream = new FileStream(_pstFilepath, FileMode.Open, FileAccess.Read);
             // Act
             using var xstFile = new XstFile(fileStream);
 
@@ -44,8 +45,8 @@ namespace XstReader.Api.Tests
         [TestMethod]
         public void ReadInboxFromStream()
         {
-            string filePath = Path.Combine("D:\\ediscovery\\Test_Export\\01.20.2025-1204PM\\Exchange\\carl.tierney@vision2.com.pst");
-            using FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            
+            using FileStream fileStream = new FileStream(_pstFilepath, FileMode.Open, FileAccess.Read);
             // Act
             using var xstFile = new XstFile(fileStream);
 
