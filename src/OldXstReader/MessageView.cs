@@ -85,7 +85,7 @@ namespace XstReader
 
         public void ClearContents()
         {
-            Message.ClearContents();
+            
             Attachments.Clear();
         }
 

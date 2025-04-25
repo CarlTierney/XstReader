@@ -233,7 +233,7 @@ namespace XstReader
             inter.fileOffset = null;
         }
         // Read a page containing part of a node or data block B-tree, and build the corresponding data structure
-        private void ReadBTPageUnicode(FileStream fs, ulong fileOffset, TreeIntermediate parent)
+        private void ReadBTPageUnicode(Stream fs, ulong fileOffset, TreeIntermediate parent)
         {
             fs.Seek((long)fileOffset, SeekOrigin.Begin);
             var p = Map.ReadType<BTPAGEUnicode>(fs);
@@ -286,7 +286,7 @@ namespace XstReader
         }
 
         // Read a page containing part of a node or data block B-tree, and build the corresponding data structure
-        private void ReadBTPageUnicode4K(FileStream fs, ulong fileOffset, TreeIntermediate parent)
+        private void ReadBTPageUnicode4K(Stream fs, ulong fileOffset, TreeIntermediate parent)
         {
             fs.Seek((long)fileOffset, SeekOrigin.Begin);
             var p = Map.ReadType<BTPAGEUnicode4K>(fs);
@@ -338,7 +338,7 @@ namespace XstReader
             }
         }
 
-        private void ReadBTPageANSI(FileStream fs, ulong fileOffset, TreeIntermediate parent)
+        private void ReadBTPageANSI(Stream fs, ulong fileOffset, TreeIntermediate parent)
         {
             fs.Seek((long)fileOffset, SeekOrigin.Begin);
             var p = Map.ReadType<BTPAGEANSI>(fs);

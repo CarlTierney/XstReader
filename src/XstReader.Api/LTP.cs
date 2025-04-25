@@ -198,7 +198,16 @@ namespace XstReader
 
         // Test for the  presence of an optional table in the supplied sub node tree
         public bool IsTablePresent(BTree<Node> subNodeTree, NID nid)
-            => (subNodeTree != null && NDB.LookupSubNode(subNodeTree, nid) != null);
+        {
+            if(subNodeTree != null)
+            {
+                var subNode = NDB.LookupSubNode(subNodeTree, nid);
+                return subNode != null;
+            }
+
+            return false;
+        }
+            
 
         #endregion
 

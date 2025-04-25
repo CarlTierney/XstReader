@@ -186,9 +186,9 @@ namespace XstReader
 
         public void Clear()
         {
-            SelectedFolder?.Folder?.ClearContents();
+            
             SelectedFolder = null;
-            CurrentMessage?.Message?.ClearContents();
+            
             CurrentMessage = null;
             RootFolderViews.Clear();
             stackMessage.Clear();

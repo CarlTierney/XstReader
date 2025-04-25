@@ -8,13 +8,13 @@
 //
 // Copyright (c) 2021, iluvadev, and released under Ms-PL License.
 
+using Krypton.Toolkit;
 using System.Text;
 
 namespace XstReader.App
 {
     internal static class Program
     {
-
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -28,8 +28,11 @@ namespace XstReader.App
             // Add a reference to the NuGet package System.Text.Encoding.CodePages for .Net core only
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            Krypton.Toolkit.PaletteTools.ApplyTheme(new Krypton.Toolkit.KryptonManager(), Krypton.Toolkit.PaletteModeManager.Office365Silver);
-
+            // Corrected the usage of PaletteMode and removed non-existent PaletteTools
+            var kryptonManager = new KryptonManager
+            {
+                GlobalPaletteMode = PaletteMode.Office2007Blue
+            };
 
             Application.Run(new MainForm());
         }

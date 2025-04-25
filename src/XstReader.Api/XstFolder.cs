@@ -21,7 +21,7 @@ namespace XstReader
     /// <summary>
     /// Class for a Folder stored inside an .ost or .pst file
     /// </summary>
-    public class XstFolder : XstElement
+    public class XstFolder : XstElement, IDisposable
     {
         /// <summary>
         /// The Container File
@@ -217,30 +217,9 @@ namespace XstReader
 
         #endregion Messages
 
-        private void ClearFolders()
-        {
-            if (_Folders != null)
-                foreach (var folder in _Folders)
-                    folder.ClearContentsInternal();
-            _Folders = null;
-            HasErrorInFolders = false;
-            ErrorInFolders = "";
-        }
-        private void ClearMessages()
-        {
-            if (_Messages != null)
-                foreach (var message in _Messages)
-                    message.ClearContentsInternal();
-            _Messages = null;
-            HasErrorInMessages = false;
-            ErrorInMessages = "";
-        }
-        internal override void ClearContentsInternal()
-        {
-            base.ClearContentsInternal();
-            ClearFolders();
-            ClearMessages();
-        }
+        
+       
+      
 
         /// <summary>
         /// Gets the String representation of the object
@@ -254,5 +233,7 @@ namespace XstReader
                 return $"[Root] {XstFile}";
             return string.Empty;
         }
+
+      
     }
 }

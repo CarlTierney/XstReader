@@ -25,10 +25,19 @@ namespace XstReader.App.Controls
         {
             if (DesignMode) return;
 
-            PropertyGridProperties.SelectedGridItemChanged += (s, e)
-                => PropDescWebView.DocumentText = (e.NewSelection.PropertyDescriptor as CustomXstPropertyDescriptor)?.HtmlDescription ?? "";
+            PropertyGridProperties.PropertyValueChanged += (s, e) =>
+            {
+                PropDescWebView.DocumentText = (e.ChangedItem.PropertyDescriptor as CustomXstPropertyDescriptor)?.HtmlDescription ?? "";
+            };
 
-            PropDescWebView.DocumentCompleted += (s,e) => PropDescWebView.Document.Body.Style = "zoom:90%";
+            PropDescWebView.DocumentCompleted += (s, e) =>
+            {
+                if (PropDescWebView.Document?.Body != null) // Ensure Document and Body are not null  
+                {
+                    PropDescWebView.Document.Body.Style = "zoom:90%";
+                }
+            };
+
             SaveToolStripButton.Click += (s, e) => SaveProperties();
         }
 
@@ -50,12 +59,7 @@ namespace XstReader.App.Controls
             PropertyGridProperties.SelectedObject = _DataSource?.Properties.ToPropertyGridSelectedObject();
         }
 
-        public void ClearContents()
-        {
-            GetDataSource()?.ClearContents();
-            SetDataSource(null);
-        }
-
+       
         private void SaveProperties()
         {
             if (_DataSource?.Properties == null)

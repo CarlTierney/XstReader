@@ -73,13 +73,16 @@
             // 
             // PropertyGridProperties
             // 
-            this.PropertyGridProperties.CategoryForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
+
+            // Replace the line causing the error with the following:  
+            this.PropertyGridProperties.PropertyGrid.CategoryForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
+            this.PropertyGridProperties.PropertyGrid.CategoryForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
             this.PropertyGridProperties.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PropertyGridProperties.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PropertyGridProperties.HelpBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(206)))), ((int)(((byte)(230)))));
-            this.PropertyGridProperties.HelpForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
+            this.PropertyGridProperties.PropertyGrid.HelpBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(206)))), ((int)(((byte)(230)))));
+            this.PropertyGridProperties.PropertyGrid.HelpForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
             this.PropertyGridProperties.HelpVisible = false;
-            this.PropertyGridProperties.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(196)))), ((int)(((byte)(216)))));
+            this.PropertyGridProperties.PropertyGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(196)))), ((int)(((byte)(216)))));
             this.PropertyGridProperties.Location = new System.Drawing.Point(0, 0);
             this.PropertyGridProperties.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PropertyGridProperties.Name = "PropertyGridProperties";

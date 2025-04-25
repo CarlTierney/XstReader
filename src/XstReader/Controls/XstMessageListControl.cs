@@ -122,7 +122,7 @@ namespace XstReader.App.Controls
 
         public void ClearContents()
         {
-            GetSelectedItem()?.ClearContents();
+            GetSelectedItem();
             SetDataSource(null);
         }
     }

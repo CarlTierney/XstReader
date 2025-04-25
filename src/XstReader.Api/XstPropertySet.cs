@@ -19,7 +19,7 @@ namespace XstReader
     /// <summary>
     /// A set of Properties of a pst/ost Element
     /// </summary>
-    public class XstPropertySet
+    public class XstPropertySet : IDisposable
     {
         private Dictionary<PropertyCanonicalName, XstProperty> _DicProperties = null;
         private Dictionary<PropertyCanonicalName, XstProperty> DicProperties
@@ -189,19 +189,13 @@ namespace XstReader
                 Add(property);
         }
 
+
         /// <summary>
-        /// Clear contents and memory
+        /// Disposes the PropertySet
         /// </summary>
-        public void ClearContents()
+        public void Dispose()
         {
-            if (_DicProperties != null)
-            {
-                foreach (var prop in _DicProperties.Values)
-                    prop.ClearContents();
-                _DicProperties.Clear();
-            }
-            _DicProperties = null;
-            IsLoaded = false;
+            _DicProperties?.Clear();
         }
     }
 }

@@ -88,7 +88,7 @@ namespace XstReader.App.Controls
             MainKryptonNavigator.Pages.Clear();
             MessageContentControl.ClearContents();
 
-            GetDataSource()?.ClearContents();
+            GetDataSource();
             SetDataSource(null);
         }
 

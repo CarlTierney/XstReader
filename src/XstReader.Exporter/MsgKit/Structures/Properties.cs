@@ -470,11 +470,11 @@ namespace XstReader.Exporter.MsgKit.Structures
                             break;
 
                         case TypeCode.SByte:
-                            data = BitConverter.GetBytes((sbyte)obj);
+                            data = BitConverter.GetBytes((ushort)Convert.ToByte(obj));
                             break;
 
                         case TypeCode.Byte:
-                            data = BitConverter.GetBytes((byte)obj);
+                            data = BitConverter.GetBytes((short)Convert.ToByte(obj));
                             break;
                         case TypeCode.Int16:
                             data = BitConverter.GetBytes((short)obj);

@@ -19,7 +19,7 @@ namespace XstReader.Common
     internal static class Map
     {
         // Read enough bytes from the file stream at the current position to populate specified type T
-        public static T ReadType<T>(FileStream fs)
+        public static T ReadType<T>(Stream fs)
         {
             byte[] buffer = new byte[Marshal.SizeOf(typeof(T))];
             fs.Read(buffer, 0, Marshal.SizeOf(typeof(T)));

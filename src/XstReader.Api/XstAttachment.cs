@@ -246,8 +246,7 @@ namespace XstReader
                     SubNodeTreeParentAttachment = subNodeTreeAttachment,
                 };
 
-                // Read the basic and contents properties
-                _AttachedEmailMessage.BodyLoader = () => Ltp.ReadProperties(subNodeTreeAttachment, _AttachedEmailMessage.Nid, _AttachedEmailMessage.Properties, true);
+                
             }
             else
                 throw new XstException("Unexpected data type for attached message");
@@ -444,12 +443,7 @@ namespace XstReader
             _Content = null;
         }
 
-        internal override void ClearContentsInternal()
-        {
-            base.ClearContentsInternal();
-            ClearAttachedEmailMessage();
-            ClearAttachmentContent();
-        }
+     
 
         /// <summary>
         /// Gets the String representation of the object

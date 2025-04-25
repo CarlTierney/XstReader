@@ -55,12 +55,12 @@
             // 
             // PropertyGridInfo
             // 
-            this.PropertyGridInfo.CategoryForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
+            this.PropertyGridInfo.PropertyGrid.CategoryForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
             this.PropertyGridInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PropertyGridInfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PropertyGridInfo.HelpBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(230)))), ((int)(((byte)(232)))));
-            this.PropertyGridInfo.HelpForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
-            this.PropertyGridInfo.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(188)))), ((int)(((byte)(193)))));
+            this.PropertyGridInfo.PropertyGrid.HelpBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(230)))), ((int)(((byte)(232)))));
+            this.PropertyGridInfo.PropertyGrid.HelpForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
+            this.PropertyGridInfo.PropertyGrid.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(188)))), ((int)(((byte)(193)))));
             this.PropertyGridInfo.Location = new System.Drawing.Point(0, 40);
             this.PropertyGridInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PropertyGridInfo.Name = "PropertyGridInfo";

@@ -43,7 +43,7 @@
             this.ProgressBar.Size = new System.Drawing.Size(348, 16);
             this.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.ProgressBar.TabIndex = 1;
-            this.ProgressBar.UseKrypton = true;
+            //this.ProgressBar.UseKrypton = true;
             this.ProgressBar.UseWaitCursor = true;
             // 
             // BackgroundWorker

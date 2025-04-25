@@ -19,7 +19,7 @@ namespace XstReader
     /// <summary>
     /// Base class for an element inside a pst or ost file
     /// </summary>
-    public abstract class XstElement
+    public abstract class XstElement : IDisposable
     {
         /// <summary>
         /// The Type of the element
@@ -129,24 +129,7 @@ namespace XstReader
         }
         #endregion Ctor
 
-        private protected void ClearProperties()
-        {
-            Properties.ClearContents();
-            //_Properties = null;
-        }
-
-        /// <summary>
-        /// Clear all Contents
-        /// </summary>
-        public virtual void ClearContents()
-        {
-            new Thread(() => { ClearContentsInternal(); GC.Collect(); }).Start();
-        }
-
-        internal virtual void ClearContentsInternal()
-        {
-            ClearProperties();
-        }
+        
 
         /// <summary>
         /// Gets the String representation of the object
@@ -154,5 +137,10 @@ namespace XstReader
         /// <returns></returns>
         public override string ToString()
             => DisplayName;
+
+        public void Dispose()
+        {
+            
+        }
     }
 }

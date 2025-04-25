@@ -118,9 +118,7 @@ namespace XstReader
         {
             try
             {
-                //Clear contents of prev selected folder
-                view.SelectedFolder?.Folder?.ClearContents();
-
+                
                 FolderView fv = (FolderView)e.NewValue;
                 view.SelectedFolder = fv;
 

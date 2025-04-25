@@ -49,7 +49,7 @@ namespace XstReader.App
             if (_CurrentXstElement == value)
                 return;
 
-            _CurrentXstElement?.ClearContents();
+            
             if (value is XstFolder folder)
             {
                 MessageListControl.SetDataSource(folder?.Messages?.OrderByDescending(m => m.Date));//, MessageFilter.GetSelectedFilter());
@@ -156,7 +156,7 @@ namespace XstReader.App
         {
             if (XstFile != null)
             {
-                XstFile.ClearContents();
+                
                 XstFile.Dispose();
                 XstFile = null;
 
@@ -166,7 +166,7 @@ namespace XstReader.App
                 //RecipientListControl.ClearContents();
                 //AttachmentListControl.ClearContents();
                 MessageViewControl.ClearContents();
-                PropertiesControl.ClearContents();
+               
             }
         }
         private void LoadXstFile(string filename)

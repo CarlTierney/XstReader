@@ -138,7 +138,7 @@ namespace XstReader.App.Controls
             RecipientListControl.ClearContents();
             AttachmentListControl.ClearContents();
 
-            GetDataSource()?.ClearContents();
+            GetDataSource();
             SetDataSource(null);
         }
     }

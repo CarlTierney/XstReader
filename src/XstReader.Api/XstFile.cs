@@ -1,170 +1,129 @@
-﻿using System.Collections.Generic;
+﻿// Project site: https://github.com/iluvadev/XstReader
+//
+// Based on the great work of Dijji. 
+// Original project: https://github.com/dijji/XstReader
+//
+// Issues: https://github.com/iluvadev/XstReader/issues
+// License (Ms-PL): https://github.com/iluvadev/XstReader/blob/master/license.md
+//
+// Copyright (c) 2021, iluvadev, and released under Ms-PL License.
+// Copyright (c) 2016, Dijji, and released under Ms-PL.  This can be found in the root of this distribution. 
+
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System;
 using XstReader.ElementProperties;
-using XstReader;
 
-public class XstFile : XstElement, IDisposable
+namespace XstReader
 {
-    private NDB _Ndb;
-    internal new NDB Ndb => _Ndb ?? (_Ndb = new NDB(this));
+    // See: https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxcmsg/7fd7ec40-deec-4c06-9493-1bc06b349682
 
-    private LTP _Ltp;
-    internal new LTP Ltp => _Ltp ?? (_Ltp = new LTP(Ndb));
 
-    private string _FileName = null;
-    private Stream _InputStream = null;
+    // The code here implements the messaging layer, which depends on and invokes the NDP and LTP layers
 
     /// <summary>
-    /// FileName of the .pst or .ost file to read
+    /// Main handling for xst (.ost and .pst) files 
     /// </summary>
-    public string FileName
+    public class XstFile : XstElement, IDisposable
     {
-        get => _FileName;
-        set => SetFileName(value);
-    }
+        private NDB _Ndb;
+        internal new NDB Ndb => _Ndb ?? (_Ndb = new NDB(this));
 
-    private void SetFileName(string fileName)
-    {
-        _FileName = fileName;
-        _InputStream = null; // Clear the stream if a new file is set
-        ClearContents();
-    }
+        private LTP _Ltp;
+        internal new LTP Ltp => _Ltp ?? (_Ltp = new LTP(Ndb));
 
-    private FileStream _ReadStream = null;
-    internal FileStream ReadStream
-    {
-        get
+        private string _FileName = null;
+        /// <summary>
+        /// FileName of the .pst or .ost file to read
+        /// </summary>
+        public string FileName { get => _FileName; set => SetFileName(value); }
+        private void SetFileName(string fileName)
         {
-            if (_InputStream != null)
-                throw new InvalidOperationException("Cannot access ReadStream when using a custom input stream.");
-            return _ReadStream ?? (_ReadStream = new FileStream(FileName, FileMode.Open, FileAccess.Read));
-        }
-    }
-
-    internal Stream InputStream
-    {
-        get
-        {
-            if (_InputStream == null && _ReadStream == null)
-                throw new InvalidOperationException("No valid input stream or file stream is available.");
-            return _InputStream ?? ReadStream;
-        }
-    }
-
-    internal object StreamLock { get; } = new object();
-
-    private XstFolder _RootFolder = null;
-    /// <summary>
-    /// The Root Folder of the XstFile. (Loaded when needed)
-    /// </summary>
-    public XstFolder RootFolder => _RootFolder ?? (_RootFolder = new XstFolder(this, new NID(EnidSpecial.NID_ROOT_FOLDER)));
-
-    /// <summary>
-    /// The Path of this Element
-    /// </summary>
-    [DisplayName("Path")]
-    [Category("General")]
-    [Description(@"The Path of this Element")]
-    public override string Path => System.IO.Path.GetFileName(this.FileName);
-
-    /// <summary>
-    /// The Parents of this Element
-    /// </summary>
-    [Browsable(false)]
-    public override XstElement Parent => null;
-
-    #region Ctor
-    /// <summary>
-    /// Constructor for file-based input
-    /// </summary>
-    /// <param name="fileName">The .pst or .ost file to open</param>
-    public XstFile(string fileName) : base(XstElementType.File)
-    {
-        FileName = fileName;
-    }
-
-    /// <summary>
-    /// Constructor for stream-based input
-    /// </summary>
-    /// <param name="inputStream">The input stream containing the .pst or .ost data</param>
-    public XstFile(Stream inputStream) : base(XstElementType.File)
-    {
-        _InputStream = inputStream ?? throw new ArgumentNullException(nameof(inputStream));
-        _FileName = null; // Clear the file name since we're using a stream
-    }
-    #endregion Ctor
-
-    private void ClearStream()
-    {
-        if (_ReadStream != null)
-        {
-            _ReadStream.Close();
-            _ReadStream.Dispose();
-            _ReadStream = null;
+            _FileName = fileName;
+            
         }
 
-        if (_InputStream != null)
+        private Stream _ReadStream = null;
+        internal Stream ReadStream
         {
-            _InputStream.Dispose();
-            _InputStream = null;
+            get => _ReadStream ?? (_ReadStream = new FileStream(FileName, FileMode.Open, FileAccess.Read));
+            private set
+            {
+                _ReadStream = value;
+            }
         }
-    }
+        internal object StreamLock { get; } = new object();
 
-    /// <summary>
-    /// Clears information and memory used in RootFolder
-    /// </summary>
-    private void ClearRootFolder()
-    {
-        if (_RootFolder != null)
+        private XstFolder _RootFolder = null;
+        /// <summary>
+        /// The Root Folder of the XstFile. (Loaded when needed)
+        /// </summary>
+        public XstFolder RootFolder => _RootFolder ?? (_RootFolder = new XstFolder(this, new NID(EnidSpecial.NID_ROOT_FOLDER)));
+
+        /// <summary>
+        /// The Path of this Element
+        /// </summary>
+        [DisplayName("Path")]
+        [Category("General")]
+        [Description(@"The Path of this Element")]
+        public override string Path => System.IO.Path.GetFileName(this.FileName);
+
+        /// <summary>
+        /// The Parents of this Element
+        /// </summary>
+        [Browsable(false)]
+        public override XstElement Parent => null;
+
+
+        #region Ctor
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="fileName">The .pst or .ost file to open</param>
+        public XstFile(string fileName) : base(XstElementType.File)
         {
-            _RootFolder.ClearContents();
-            _RootFolder = null;
+            FileName = fileName;
         }
-    }
 
-    /// <summary>
-    /// Clears all information and memory used by the object
-    /// </summary>
-    public override void ClearContents()
-    {
-        ClearStream();
-        ClearRootFolder();
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="stream">A stream that could be any stream file, memory, network</param>
+        public XstFile(Stream stream) : base(XstElementType.File)
+        {
+            ReadStream = stream;
+        }
+        #endregion Ctor
 
-        _Ndb = null;
-        _Ltp = null;
-    }
+        private void ClearStream()
+        {
+            if (_ReadStream != null)
+            {
+                _ReadStream.Close();
+                _ReadStream.Dispose();
+                _ReadStream = null;
+            }
+        }
 
-    /// <summary>
-    /// Disposes memory used by the object
-    /// </summary>
-    public void Dispose()
-    {
-        ClearContents();
-    }
 
-    /// <summary>
-    /// Gets the String representation of the object
-    /// </summary>
-    /// <returns></returns>
-    public override string ToString()
-    {
-        return System.IO.Path.GetFileName(FileName ?? "Stream");
-    }
 
-    private protected override IEnumerable<XstProperty> LoadProperties()
-    {
-        return new XstProperty[0];
-    }
+       
+        
 
-    private protected override XstProperty LoadProperty(PropertyCanonicalName tag)
-    {
-        return null;
-    }
+        private protected override IEnumerable<XstProperty> LoadProperties()
+        {
+            return new XstProperty[0];
+        }
 
-    private protected override bool CheckProperty(PropertyCanonicalName tag)
-    {
-        return false;
+        private protected override XstProperty LoadProperty(PropertyCanonicalName tag)
+        {
+            return null;
+        }
+
+        private protected override bool CheckProperty(PropertyCanonicalName tag)
+        {
+            return false;
+        }
     }
 }

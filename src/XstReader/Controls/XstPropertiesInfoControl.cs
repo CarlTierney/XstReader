@@ -56,7 +56,7 @@ namespace XstReader.App.Controls
 
         public void ClearContents()
         {
-            GetDataSource()?.ClearContents();
+            GetDataSource();
             SetDataSource(null);
         }
 

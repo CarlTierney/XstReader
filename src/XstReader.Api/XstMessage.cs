@@ -255,7 +255,7 @@ namespace XstReader
         private BTree<Node> _SubNodeTreeProperties = null;
         internal BTree<Node> SubNodeTreeProperties
         {
-            get => _SubNodeTreeProperties ?? (_SubNodeTreeProperties = BodyLoader?.Invoke());
+            get => _SubNodeTreeProperties ?? (_SubNodeTreeProperties = LoadBody());
             set => _SubNodeTreeProperties = value;
         }
         internal BTree<Node> SubNodeTreeParentAttachment = null;
@@ -270,16 +270,11 @@ namespace XstReader
         #endregion Message State Class Properties
 
         #region Body Class Properties
-        private Func<BTree<Node>> _BodyLoader = null;
-        internal Func<BTree<Node>> BodyLoader
+        
+
+        internal BTree<Node> LoadBody()
         {
-            get => _BodyLoader;
-            set
-            {
-                if (_BodyLoader != null)
-                    ClearContents();
-                _BodyLoader = value;
-            }
+            return Ltp.ReadProperties(Nid, Properties);
         }
 
         private Encoding _Encoding = null;
@@ -414,7 +409,7 @@ namespace XstReader
 
             // Read the contents properties
             //BodyLoader = () => Ltp.ReadProperties<XstMessage>(Nid, PropertyGetters.MessageContentProperties, this);
-            BodyLoader = () => Ltp.ReadProperties(Nid, Properties);
+             //_BodyLoader = () => Ltp.ReadProperties(Nid, Properties);
         }
         #endregion Ctor
 
@@ -599,15 +594,6 @@ namespace XstReader
             SubNodeTreeProperties = null;
             _NativeBody = null;
             _Body = null;
-        }
-        internal override void ClearContentsInternal()
-        {
-            base.ClearContentsInternal();
-
-            _Flags = null;
-            ClearBody();
-            ClearAttachments();
-            ClearRecipients();
         }
 
         internal void ProcessSignedOrEncrypted()

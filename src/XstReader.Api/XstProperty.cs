@@ -20,7 +20,7 @@ namespace XstReader
     /// <summary>
     /// A Property of a pst/ost element
     /// </summary>
-    public class XstProperty : XstPropertyBase
+    public class XstProperty : XstPropertyBase, IDisposable
     {
         internal Func<dynamic> ValueGetter { get; set; } = null;
         private dynamic _Value;
@@ -104,10 +104,8 @@ namespace XstReader
                 _Value = this._Value,
             };
 
-        /// <summary>
-        /// Clear all contents and memory used
-        /// </summary>
-        public void ClearContents()
+
+        public void Dispose()
         {
             _Value = null;
         }
